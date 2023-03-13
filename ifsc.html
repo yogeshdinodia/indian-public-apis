@@ -1,0 +1,111 @@
+<!-- 
+############################################################
+#	Code Repo: 		https://www.github.com/yogeshdinodia/
+#
+#	Github Acc:		@yogeshdinodia	
+#	Author:			Yogesh Dinodia
+#	Website: 		yogeshdinodia.com
+#	Organization: 	Softhuge Technologies
+#	Org Website: 	www.softhuge.com
+############################################################
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Indian Public APIs</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-4">
+	<div class="card shadow"><div class="card-body text-center"><h3>BANK IFSC API</h3></div></div>
+</div>
+
+<div class="container mt-4">
+	<div class="card shadow">
+		<div class="card-body">
+			
+			<div class="form-group">
+			    <label style="font-weight: bolder;">IFSC Code: </label>
+			    <input type="text" class="form-control" id="ifsc" placeholder="Enter IFSC Code">
+			    <small id="msg" class="form-text text-muted"></small>
+		  	</div>
+		  	<div class="form-group">
+		  		<button id="fetch" class="btn btn-success btn-lg">Fetch Now</button>
+		  	</div>
+		  	<div class="details_section" style="display: none;">
+		  		<hr>
+			  	<h3><b class="IFSC">Fetching..</b> Details: </h3>
+			  	<table class="table" style="font-size: 20px;">
+				  <tbody>
+				    <tr>
+				      <td>Bank: <b class="dText BANK">Fetching..</b></td>
+				      <td>Branch: <b class="dText BRANCH">Fetching..</b></td>
+				      <td>BANKCODE: <b class="dText BANKCODE">Fetching..</b></td>
+				    </tr>
+				    <tr>
+				      <td>CITY: <b class="dText CITY">Fetching..</b></td>
+				      <td>CENTRE: <b class="dText CENTRE">Fetching..</b></td>
+				      <td>DISTRICT: <b class="dText DISTRICT">Fetching..</b></td>
+				    </tr>
+				    <tr>
+				      <td colspan="3">ADDRESS: <b class="dText ADDRESS">Fetching..</b></td>
+				    </tr>
+				    <tr>
+				      <td>STATE: <b class="dText STATE">Fetching..</b></td>
+				      <td>CONTACT: <b class="dText CONTACT">Fetching..</b></td>
+				      <td>ISO3166: <b class="dText ISO3166">Fetching..</b></td>
+				    </tr>
+				    <tr>
+				      <td>UPI: <b class="dText UPI">Fetching..</b></td>
+				      <td>RTGS: <b class="dText RTGS">Fetching..</b></td>
+				      <td>IMPS: <b class="dText IMPS">Fetching..</b></td>
+				    </tr>
+				    <tr>
+				      <td>NEFT: <b class="dText NEFT">Fetching..</b></td>
+				      <td>SWIFT: <b class="dText SWIFT">Fetching..</b></td>
+				      <td>MICR: <b class="dText MICR">Fetching..</b></td>
+				    </tr>
+				  </tbody>
+				</table>
+
+
+		  	</div>
+
+		</div>
+	</div>
+</div>
+
+<script src="assets/js/jquery.js"></script>
+<script>
+	$(document).on("click","#fetch",function(){
+		$(".details_section").hide("");
+		let ifsc = $("#ifsc").val();
+		let url = "https://ifsc.razorpay.com/"+ifsc;
+		$.getJSON(url, function(d){
+			$(".details_section").show();
+		  	$('.IFSC').html(d.IFSC);
+		  	$('.MICR').html(d.MICR);
+		  	$('.BRANCH').html(d.BRANCH);
+		  	$('.ADDRESS').html(d.ADDRESS);
+		  	$('.STATE').html(d.STATE);
+		  	$('.CONTACT').html(d.CONTACT);
+		  	$('.UPI').html(d.UPI);
+		  	$('.RTGS').html(d.RTGS);
+		  	$('.CITY').html(d.CITY);
+		  	$('.CENTRE').html(d.CENTRE);
+		  	$('.DISTRICT').html(d.DISTRICT);
+		  	$('.NEFT').html(d.NEFT);
+		  	$('.IMPS').html(d.IMPS);
+		  	$('.SWIFT').html(d.SWIFT);
+		  	$('.ISO3166').html(d.ISO3166);
+		  	$('.BANK').html(d.BANK);
+		  	$('.BANKCODE').html(d.BANKCODE);
+		})
+	});
+</script>
+</body>
+</html>
