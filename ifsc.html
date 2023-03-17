@@ -17,24 +17,26 @@
 	<title>Indian Public APIs</title>
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/fontawesome/css/all.min.css">
 </head>
 <body>
 
 <div class="container mt-4">
 	<div class="card shadow"><div class="card-body text-center"><h3>BANK IFSC API</h3></div></div>
 </div>
-
 <div class="container mt-4">
 	<div class="card shadow">
 		<div class="card-body">
-			
 			<div class="form-group">
 			    <label style="font-weight: bolder;">IFSC Code: </label>
 			    <input type="text" class="form-control" id="ifsc" placeholder="Enter IFSC Code">
 			    <small id="msg" class="form-text text-muted"></small>
 		  	</div>
 		  	<div class="form-group">
-		  		<button id="fetch" class="btn btn-success btn-lg">Fetch Now</button>
+		  		<button id="fetch" class="btn btn-success btn-lg">
+		  			<span class="fetchBtnTxt">Fetch Now</span>
+		  			<span class="fetchBtnLoad" style="display:none;"><i class="fa fa-spinner fa-pulse"></i> Fetching..</span>
+		  		</button>
 		  	</div>
 		  	<div class="details_section" style="display: none;">
 		  		<hr>
@@ -71,41 +73,18 @@
 				    </tr>
 				  </tbody>
 				</table>
-
-
 		  	</div>
-
+		  	<div class="details_section_err text-center" style="display: none;"></div>
 		</div>
 	</div>
 </div>
-
 <script src="assets/js/jquery.js"></script>
 <script>
-	$(document).on("click","#fetch",function(){
-		$(".details_section").hide("");
-		let ifsc = $("#ifsc").val();
-		let url = "https://ifsc.razorpay.com/"+ifsc;
-		$.getJSON(url, function(d){
-			$(".details_section").show();
-		  	$('.IFSC').html(d.IFSC);
-		  	$('.MICR').html(d.MICR);
-		  	$('.BRANCH').html(d.BRANCH);
-		  	$('.ADDRESS').html(d.ADDRESS);
-		  	$('.STATE').html(d.STATE);
-		  	$('.CONTACT').html(d.CONTACT);
-		  	$('.UPI').html(d.UPI);
-		  	$('.RTGS').html(d.RTGS);
-		  	$('.CITY').html(d.CITY);
-		  	$('.CENTRE').html(d.CENTRE);
-		  	$('.DISTRICT').html(d.DISTRICT);
-		  	$('.NEFT').html(d.NEFT);
-		  	$('.IMPS').html(d.IMPS);
-		  	$('.SWIFT').html(d.SWIFT);
-		  	$('.ISO3166').html(d.ISO3166);
-		  	$('.BANK').html(d.BANK);
-		  	$('.BANKCODE').html(d.BANKCODE);
-		})
-	});
+$(document).on("click","#fetch",function(){ $(".details_section").hide(); $(".details_section_err").hide();
+$(".fetchBtnTxt").hide(); $(".fetchBtnLoad").show(); $("#fetch").attr("disabled", true);
+let ifsc = $("#ifsc").val(); let url = "apiCall.php?ifsc="+ifsc;
+$.getJSON(url, function(output){ $(".fetchBtnTxt").show(); $(".fetchBtnLoad").hide(); $("#fetch").attr("disabled", false); if(output.StatusCode==200){ let d = output.Data $(".details_section").show(); $(".details_section_err").hide(); $('.IFSC').html(d.IFSC); $('.MICR').html(d.MICR); $('.BRANCH').html(d.BRANCH); $('.ADDRESS').html(d.ADDRESS); $('.STATE').html(d.STATE); $('.CONTACT').html(d.CONTACT); $('.UPI').html(d.UPI); $('.RTGS').html(d.RTGS); $('.CITY').html(d.CITY); $('.CENTRE').html(d.CENTRE); $('.DISTRICT').html(d.DISTRICT); $('.NEFT').html(d.NEFT); $('.IMPS').html(d.IMPS); $('.SWIFT').html(d.SWIFT); $('.ISO3166').html(d.ISO3166); $('.BANK').html(d.BANK); $('.BANKCODE').html(d.BANKCODE); } else{ $(".details_section").hide(); $(".details_section_err").show(); $(".details_section_err").html(output.Message); } });
+});
 </script>
 </body>
 </html>
